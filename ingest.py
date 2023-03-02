@@ -8,14 +8,15 @@ import pickle
 
 
 # Here we load in the data in the format that Notion exports it in.
-ps = list(Path("Notion_DB/").glob("**/*.md"))
+ps = list(Path("clinical_summary/").glob("**/*.txt"))
 
 data = []
 sources = []
 for p in ps:
+    print(p)
     with open(p) as f:
         data.append(f.read())
-    sources.append(p)
+    sources.append('https://clinicaltrials.gov/ct2/show/' + str(p)[17:-4])
 
 # Here we split the documents, as needed, into smaller chunks.
 # We do this due to the context limits of the LLMs.
